@@ -1,0 +1,51 @@
+name: Update Metadata with Hash
+
+on:
+  push:
+    paths:
+      - '**/UParTAK4.json'
+
+jobs:
+  update-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute hash and update JSON
+        run: |
+          JSON_FILE="models/particletransformer_AK4/1/UParTAK4.json"
+          if [ -f "$JSON_FILE" ]; then
+            # Compute SHA256 hash of the file content
+            HASH=$(sha256sum "$JSON_FILE" | awk '{print $1}')
+            echo "Computed hash: $HASH"
+            
+            # Check if the JSON already has this hash
+            CURRENT_HASH=$(jq -r '.[0].hash // empty' "$JSON_FILE")
+            echo "Current hash in JSON: $CURRENT_HASH"
+            
+            if [ "$CURRENT_HASH" != "$HASH" ]; then
+              echo "Hash mismatch, updating JSON"
+              # Add or update the hash field
+              jq --arg hash "$HASH" '.[0].hash = $hash' "$JSON_FILE" > "${JSON_FILE}.tmp"
+              mv "${JSON_FILE}.tmp" "$JSON_FILE"
+              echo "updated=true" >> $GITHUB_ENV
+            else
+              echo "Hash matches, no update needed"
+              echo "updated=false" >> $GITHUB_ENV
+            fi
+          else
+            echo "JSON file not found"
+            exit 1
+          fi
+
+      - name: Commit updated JSON
+        if: env.updated == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add models/particletransformer_AK4/1/UParTAK4.json
+          git commit -m "Add/update hash in metadata JSON"
+          git push

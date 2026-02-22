@@ -1,0 +1,45 @@
+[
+  {
+    "model_name": "UParTAK4",
+    "version": "4",
+    "model_path": "RecoBTag/Combined/RobustParTAK4/PUPPI/V00/modelfile/model.onnx",
+    "hash": "abc123",
+    "preprocessing_path": "/models/AK4_preproc_v1.json",
+    "input_features": [
+      "pt",
+      "eta",
+      "phi",
+      "mass",
+      "tau1",
+      "tau2",
+      "tau3",
+      "tau4",
+      "tau21",
+      "tau32",
+      "ecf1",
+      "ecf2",
+      "ecf3",
+      "n2b1",
+      "n3b1"
+    ],
+    "flav_names": [
+      "probTbcq",
+      "probTbqq",
+      "probTbc",
+      "probTbq",
+      "probWcq",
+      "probWqq",
+      "probZbb",
+      "probZcc",
+      "probZqq",
+      "probHbb",
+      "probHcc",
+      "probHqqqq",
+      "probQCDbb",
+      "probQCDcc",
+      "probQCDb",
+      "probQCDc",
+      "probQCDothers"
+    ]
+  }
+]
