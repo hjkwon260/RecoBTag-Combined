@@ -1,7 +1,7 @@
 [
   {
     "model_name": "UParTAK4",
-    "version": "4",
+    "version": "5",
     "model_path": "RecoBTag/Combined/RobustParTAK4/PUPPI/V00/modelfile/model.onnx",
     "hash": "61124a0e662dd0450623f4be0f19d7fb1ea2a5583be08f3e4da4a82f8d0d6a55",
     "preprocessing_path": "/models/AK4_preproc_v1.json",
