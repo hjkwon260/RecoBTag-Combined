@@ -18,8 +18,8 @@ jobs:
         run: |
           JSON_FILE="models/particletransformer_AK4/1/UParTAK4.json"
           if [ -f "$JSON_FILE" ]; then
-            # Compute SHA256 hash of the file content
-            HASH=$(sha256sum "$JSON_FILE" | awk '{print $1}')
+            # Compute MD5 hash of the file content
+            HASH=$(md5sum "$JSON_FILE" | awk '{print $1}')
             echo "Computed hash: $HASH"
             
             # Check if the JSON already has this hash
